@@ -61,14 +61,16 @@ public class BackendSpApplication {
 //                manga.setPrice(100);
 //                mangaServices.saveManga(manga);
 //            }
-            User user = User.builder()
-                    .id(1L)
-                    .name("test")
-                    .email("test@test")
-                    .password("test")
-                    .build();
+            User user=new User(null ,"test","test@test","test",null,"User");
+            User user1=new User(null ,"test1","test1@test","test",null,"User");
+//                    .name("test")
+//                    .email("test@test")
+//                    .password("test")
+//                    .Role("User")
+//                    .build();
 
             User u =userRepo.save(user);
+            User u1 =userRepo.save(user1);
             System.out.println(u);
             File folder = new File(Local);
             File[] listOfFiles = folder.listFiles();

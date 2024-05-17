@@ -1,17 +1,17 @@
 package com.example.backendsp.DAO.entities;
 
 import jakarta.persistence.*;
+import jdk.jshell.Snippet;
 import lombok.*;
 
-import com.example.backendsp.DAO.enums.Role;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 @Data
-@Builder
 @ToString
 public class User {
     @Id
@@ -23,11 +23,8 @@ public class User {
 
     @OneToOne(mappedBy = "user")
     private Cart cart ;
-    @Enumerated(EnumType.STRING)
-    private Role role;
-    public User(){
-        this.setRole(Role.ADMIN);
+    private String Role;
 
-    }
+
 
 }
