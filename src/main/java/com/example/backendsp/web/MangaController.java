@@ -51,6 +51,15 @@ public class MangaController {
         mangaServices.saveManga(manga);
         return new ResponseEntity<>(manga, HttpStatus.CREATED);
     }
+    @PutMapping("/{id}")
+    public ResponseEntity<Manga> updateManga(@PathVariable Long id, @RequestBody Manga manga) {
+        Manga updatedManga = mangaServices.updateManga(id, manga);
+        if (updatedManga != null) {
+            return new ResponseEntity<>(updatedManga, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteManga(@PathVariable Long id) {
         mangaServices.deleteManga(id);

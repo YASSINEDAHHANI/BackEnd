@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jdk.jshell.Snippet;
 import lombok.*;
 
+import java.nio.file.FileStore;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -13,6 +14,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Data
 @ToString
+@Builder
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +26,7 @@ public class User {
     @OneToOne(mappedBy = "user")
     private Cart cart ;
     private String Role;
+
 
 
 

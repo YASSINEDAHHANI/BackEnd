@@ -30,7 +30,19 @@ public class Mangaservice implements MangaServices{
         Optional<Manga> mangaOptional = mangaRepo.findById(Id);
         return mangaOptional.orElse(null);
     }
-
+    public Manga updateManga(Long Id, Manga manga) {
+        Optional<Manga> existingManga = mangaRepo.findById(Id);
+        if (existingManga.isPresent()) {
+            Manga updatedManga = existingManga.get();
+            updatedManga.setTitle(manga.getTitle());
+            updatedManga.setImgUrl(manga.getImgUrl());
+            updatedManga.setDescription(manga.getDescription());
+            updatedManga.setPrice(manga.getPrice());
+            return mangaRepo.save(updatedManga);
+        } else {
+            return null;
+        }
+    }
     @Override
     public void saveManga(Manga manga) {
         mangaRepo.save(manga);

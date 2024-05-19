@@ -16,4 +16,6 @@ public interface MangaServices {
     void deleteManga(Long Id);
 
 
+    Manga updateManga(Long Id, Manga manga);
+
 }
