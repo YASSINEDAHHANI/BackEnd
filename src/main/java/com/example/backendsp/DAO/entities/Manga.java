@@ -20,9 +20,14 @@ public class Manga {
     private String imgUrl;
     private String description;
     private double price;
+
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @ManyToMany(mappedBy = "mangas")
     private List<Cart> cart;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id")
+    private Order order;
 
     @Override
     public String toString() {
@@ -31,7 +36,7 @@ public class Manga {
                 ", title='" + Title + '\'' +
                 ", email='" + imgUrl + '\'' +
                 ", description='" + description + '\'' +
-                ", price=" + price +// Assuming Cart has getId() method
+                ", price=" + price +
                 '}';
     }
 }

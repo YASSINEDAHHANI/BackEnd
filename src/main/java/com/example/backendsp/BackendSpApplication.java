@@ -62,7 +62,7 @@ public class BackendSpApplication {
 //                mangaServices.saveManga(manga);
 //            }
             User user=new User(null ,"test","test@test","test",null,"User");
-            User user1=new User(null ,"test1","test1@test","test",null,"User");
+            User user1=new User(null ,"test1","admin@admin","admin",null,"ADMIN");
 //                    .name("test")
 //                    .email("test@test")
 //                    .password("test")

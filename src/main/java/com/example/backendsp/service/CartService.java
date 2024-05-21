@@ -1,18 +1,29 @@
 package com.example.backendsp.service;
 
 import com.example.backendsp.DAO.entities.Cart;
+import com.example.backendsp.DAO.entities.Manga;
+import com.example.backendsp.DAO.entities.Order;
 import com.example.backendsp.DAO.repo.CartRepo;
+import com.example.backendsp.DAO.repo.OrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @Service
 public class CartService implements CartServices {
 
     @Autowired
     private CartRepo cartRepo;
+
+    @Autowired
+    private MangaServices mgser;
+
+    @Autowired
+    private OrderService orderService;
 
     @Override
     public List<Cart> getAllCarts() {
@@ -45,5 +56,16 @@ public class CartService implements CartServices {
     @Override
     public void deleteCart(Long Id) {
 
+    }
+
+    @Override
+    public void deleteMangaFromCart(long userId, long bookId) {
+           Cart cart =  cartRepo.findByUserId(userId).get();
+           System.out.println(cart);
+           cart.getMangas().remove(mgser.getMangaById(bookId));
+           cartRepo.save(cart);
+    }
+    public Order checkout(Long userId) {
+        return orderService.createOrder(userId);
     }
 }

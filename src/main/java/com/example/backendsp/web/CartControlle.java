@@ -3,10 +3,10 @@ package com.example.backendsp.web;
 
 import com.example.backendsp.DAO.entities.Cart;
 import com.example.backendsp.DAO.entities.Manga;
+import com.example.backendsp.DAO.entities.Order;
 import com.example.backendsp.DAO.entities.User;
-import com.example.backendsp.service.CartServices;
-import com.example.backendsp.service.MangaServices;
-import com.example.backendsp.service.UserServices;
+import com.example.backendsp.DAO.repo.OrderRepository;
+import com.example.backendsp.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +29,10 @@ public class CartControlle {
     @Autowired
     private UserServices userServices;
 
+    @Autowired
+    private OrderServices orderService;
+    @Autowired
+    private OrderRepository orderRepository;
     @GetMapping
     public ResponseEntity<List<Cart>> getAllCarts() {
         List<Cart> carts = cartServices.getAllCarts();
@@ -50,7 +54,6 @@ public class CartControlle {
     public  ResponseEntity<Cart> addToCart(@PathVariable Long userId ,@RequestBody Long mangaID){
         User user =userServices.
                 getUserById(userId);
-
         System.out.println("----------------------------------------------------");
         System.out.println(user);
         System.out.println("----------------------------------------------------");
@@ -88,8 +91,22 @@ public class CartControlle {
         }
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCart(@PathVariable Long id) {
-        cartServices.deleteCart(id);
+    public ResponseEntity<Void> deleteCart(@PathVariable("id") Long userid,@RequestBody Long mangaid) {
+        cartServices.deleteMangaFromCart(userid,mangaid);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
+    @PostMapping("/checkout/{userId}")
+    public ResponseEntity<Order> checkout(@PathVariable Long userId) {
+        User user =userServices.
+                getUserById(userId);
+        Cart cart= user.getCart();
+        Order order=new Order();
+        if(user.getCart()!=null){
+            order.setMangaList(cart.getMangas());
+            orderRepository.save(order);
+
+        }
+
+        return new ResponseEntity<>(order, HttpStatus.OK);
     }
 }

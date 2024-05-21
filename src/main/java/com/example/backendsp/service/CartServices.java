@@ -2,6 +2,7 @@ package com.example.backendsp.service;
 
 import com.example.backendsp.DAO.entities.Cart;
 import com.example.backendsp.DAO.entities.Manga;
+import com.example.backendsp.DAO.entities.Order;
 import com.example.backendsp.DAO.entities.User;
 
 import java.util.List;
@@ -14,8 +15,7 @@ public interface CartServices {
 
     Optional<Cart> findByUserId(Long userId);
 
-
-//    Cart createCart(Cart cart);
+    Order checkout(Long userId);
 
 
     Cart addToCart(Cart cart);
@@ -23,4 +23,5 @@ public interface CartServices {
     Cart updateCart(Long Id, Cart updatedCart);
 
     void deleteCart(Long Id);
+    void deleteMangaFromCart(long userId, long mangaId);
 }
