@@ -25,9 +25,8 @@ public class Manga {
     @ManyToMany(mappedBy = "mangas")
     private List<Cart> cart;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    private Order order;
+    @ManyToMany(fetch = FetchType.LAZY)
+    private List<Order> order;
 
     @Override
     public String toString() {
